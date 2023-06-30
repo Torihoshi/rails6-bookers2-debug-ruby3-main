@@ -1,23 +1,16 @@
 Rails.application.routes.draw do
+  devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  root :to =>"homes#top"
   get "home/about"=>"homes#about"
-  root to: "homes#top"
 
-  devise_for :users
-
-  resources :users, only: [:index,:show,:edit,:update]
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
-    #1人のユーザーは1つの投稿に対して1回しかいいねできない。resourcesではなくresourceを使ってURLに/:idを含めない。
-    resource :favorites, only: [:create, :destroy]
-
-    # 1人のユーザーは1つの投稿に対し複数コメントできるので、resourcesとする。
     resources :book_comments, only: [:create, :destroy]
-
+    resource :favorites, only: [:create, :destroy]
   end
-
+  resources :users, only: [:index,:show,:edit,:update]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
 end
 
                 #                   Prefix Verb   URI Pattern                                                                                       Controller#Action

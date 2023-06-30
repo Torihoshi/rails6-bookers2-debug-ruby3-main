@@ -1,72 +1,34 @@
 <div class='container'>
   <div class='row'>
-
     <div class='col-md-3'>
       <h2>User info</h2>
       <%= render 'users/info', user: @book.user %>
       <h2 class="mt-3">New book</h2>
-      <%= render 'books/form', book: @book_new %>
+      <%= render 'form', book: Book.new %>
     </div>
-
     <div class='col-md-8 offset-md-1'>
   		<h2>Book detail</h2>
   		<table class='table'>
   		  <tr>
-  		    <!--ユーザアイコン-->
           <td><%= link_to(@book.user) do %>
             <%= image_tag @book.user.get_profile_image, size:"100x100" %><br>
             <%= @book.user.name %>
             <% end %>
           </td>
-
-          <!--タイトル-->
           <td><%= link_to @book.title, @book %></td>
-
-          <!--感想-->
           <td><%= @book.body %></td>
-
-          <!--いいね機能-->
-          <td>
-            <% if @book.favorited_by?(current_user) %>
-            <p>
-              <%= link_to book_favorites_path(@book), method: :delete, class: "favorited" do %>
-                ♥<%= @book.favorites.count %>
-              <% end %>
-            </p>
-            <% else %>
-            <p>
-              <%= link_to book_favorites_path(@book), method: :post, class: "favorite" do %>
-                ♡<%= @book.favorites.count %>
-              <% end %>
-            </p>
-          <% end %>
-          </td>
-
-          <!--編集・削除機能-->
+          <td><%= render "favorites/btn", book: @book %></td>
+          <td>コメント数: <%= @book.book_comments.count %></td>
           <% if @book.user == current_user %>
-            <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
-            <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
+            <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
+            <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
           <% end %>
         </tr>
       </table>
 
-        <!--コメント表示-->
-        <div>
-          <p>コメント件数：<%= @book.book_comments.count %></p>
-          <% @book.book_comment.each do |comment| %>
-            <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
-            <%= comment.user.name %>
-            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-          <% end %>
-
-        <!--コメント投稿機能-->
-          <%= form_with model: [@book, @book_comment] do |f| %>
-            <%= f.text_area :comment, rows: '5', class: 'form-control book_comment' %>
-            <%= f.submit "送信" %>
-          <% end %>
-        </div>
+      <%= render "book_comments/index", book: @book %>
+      <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
 
     </div>
-
   </div>
 </div>
