@@ -1,3 +1,4 @@
+<!--部分テンプレート コメント投稿機能-->
 <%= form_with(model:[book, book_comment], local: true) do |f| %>
   <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに", class: "w-100" %>
   <%= f.submit "送信" %>
