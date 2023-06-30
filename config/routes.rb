@@ -8,9 +8,12 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index,:show,:edit,:update]
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
-    #1人のユーザーは1つの投稿に対して1回しかいいねできない.
-    #resourcesではなくresourceを使ってURLに/:idを含めない.
+    #1人のユーザーは1つの投稿に対して1回しかいいねできない。resourcesではなくresourceを使ってURLに/:idを含めない。
     resource :favorites, only: [:create, :destroy]
+
+    # 1人のユーザーは1つの投稿に対し複数コメントできるので、resourcesとする。
+    resources :book_comments, only: [:create, :destroy]
+
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
@@ -54,3 +57,6 @@ end
                 #                         PATCH  /books/:id(.:format)                                                                              books#update
                 #                         PUT    /books/:id(.:format)                                                                              books#update
                 #                         DELETE /books/:id(.:format)                                                                              books#destroy
+
+                     # book_book_comments POST   /books/:book_id/book_comments(.:format)                                                           book_comments#create
+                      # book_book_comment DELETE /books/:book_id/book_comments/:id(.:format)                                                       book_comments#destroy

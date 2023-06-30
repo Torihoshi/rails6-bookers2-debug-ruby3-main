@@ -18,10 +18,13 @@
             <%= @book.user.name %>
             <% end %>
           </td>
+
           <!--タイトル-->
           <td><%= link_to @book.title, @book %></td>
+
           <!--感想-->
           <td><%= @book.body %></td>
+
           <!--いいね機能-->
           <td>
             <% if @book.favorited_by?(current_user) %>
@@ -38,6 +41,7 @@
             </p>
           <% end %>
           </td>
+
           <!--編集・削除機能-->
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
@@ -45,6 +49,23 @@
           <% end %>
         </tr>
       </table>
+
+        <!--コメント表示-->
+        <div>
+          <p>コメント件数：<%= @book.book_comments.count %></p>
+          <% @book.book_comment.each do |comment| %>
+            <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
+            <%= comment.user.name %>
+            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+          <% end %>
+
+        <!--コメント投稿機能-->
+          <%= form_with model: [@book, @book_comment] do |f| %>
+            <%= f.text_area :comment, rows: '5', class: 'form-control book_comment' %>
+            <%= f.submit "送信" %>
+          <% end %>
+        </div>
+
     </div>
 
   </div>
