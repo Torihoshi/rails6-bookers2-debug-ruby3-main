@@ -11,6 +11,10 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @book = Book.new
+
+    # @following_users = @user.following_user
+    # @follower_users = @user.follower_user
+
   end
 
   def edit
@@ -23,6 +27,30 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
+
+  def create
+    user = User.find(params[:user_id])
+    current_user.follow(user)
+    redirect_to request.referer
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    current_user.unfollow(user)
+    redirect_to request.referer
+  end
+
+  def follows
+    @user = User.find(params[:id])
+    @following_users = @user.following_user
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @follower_users = @user.follower_user
+  end
+
+
 
   private
 
