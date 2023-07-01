@@ -13,6 +13,17 @@
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
+
+  <tr>
+    <th>follows</th>
+    <th><%= user.following_user.count %></th>
+  </tr>
+
+  <tr>
+    <th>followers</th>
+    <th><%= user.follower_user.count %></th>
+  </tr>
+
 </table>
 
 <div class='row'>
