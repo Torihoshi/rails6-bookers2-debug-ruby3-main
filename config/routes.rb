@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   root :to =>"homes#top"
   get "home/about"=>"homes#about"
+  get "search" => "searches#search"
+
 
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     resources :book_comments, only: [:create, :destroy]
@@ -58,3 +60,4 @@ end
                 #                     user GET    /users/:id(.:format)                                                                              users#show
                 #                         PATCH  /users/:id(.:format)                                                                              users#update
                 #                         PUT    /users/:id(.:format)                                                                              users#update
+                                 # search GET    /search(.:format)                                                                                 searches#search
