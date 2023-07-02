@@ -1,13 +1,13 @@
 <!--いいね機能-->
 <% if book.favorited_by?(current_user) %><!--いいねをする-->
-  <%= link_to book_favorites_path(book), method: :delete,  style: "color: red;" do %>
+  <%= link_to book_favorites_path(book), method: :delete, remote: true, data: {"turbolinks" => false}, style: "color: red;" do %>
     <nobr>
       <i class="fas fa-heart" aria-hidden="true"></i>
       <%= book.favorites.count %>
     </nobr>
   <% end %>
 <% else %><!--いいねをはずす-->
-  <%= link_to book_favorites_path(book), method: :post do %>
+  <%= link_to book_favorites_path(book), method: :post, remote: true, data: {"turbolinks" => false} do %>
     <nobr>
       <i class="fas fa-heart" aria-hidden="true"></i>
       <%= book.favorites.count %>
