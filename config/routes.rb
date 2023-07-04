@@ -63,3 +63,4 @@ end
                 #                         PATCH  /users/:id(.:format)                                                                              users#update
                 #                         PUT    /users/:id(.:format)                                                                              users#update
                                  # search GET    /search(.:format)                                                                                 searches#search
+                      # tagsearches_search GET    /tagsearches/search(.:format)                                                                     tagsearches#search

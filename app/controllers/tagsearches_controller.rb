@@ -7,7 +7,4 @@ class TagsearchesController < ApplicationController
     render "tagsearches/tagsearch"
   end
 
-
-
-
 end
