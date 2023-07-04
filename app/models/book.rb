@@ -26,5 +26,9 @@ class Book < ApplicationRecord
     end
   end
 
+  # ソート機能(desc=昇順, asc=降順)
+  scope :latest, -> {order(created_at: :desc)} #作成日が新しい順
+  scope :old, -> {order(created_at: :asc)} #作成日が古い順
+  scope :star_count, -> {order(star: :desc)} #スコア順
 
 end
