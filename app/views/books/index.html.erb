@@ -12,9 +12,8 @@
       <%= render 'form', book: @book %>
     </div>
 
-    <!--右側部分-->
+    <!--右側部分 投稿一覧-->
     <div class='col-md-8 offset-md-1'>
-      <!--投稿一覧-->
       <h2>Books</h2>
       <!--ソート機能-->
       <div class="sort-link">
@@ -24,7 +23,8 @@
         |
         <%= link_to '評価の高い順', books_path(star_count: "true") %>
       </div>
-      <%= render 'index', books: @books%>
+      <!--投稿一覧-->
+      <%= render 'index', books: @books %>
     </div>
 
   </div>
