@@ -31,4 +31,8 @@ class Book < ApplicationRecord
   scope :old, -> {order(created_at: :asc)} #作成日が古い順
   scope :star_count, -> {order(star: :desc)} #スコア順
 
+
+  validates :category, presence: true
+
+
 end

@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
   end
 
+  get 'tagsearches/search', to: 'tagsearches#search'
+
 
 end
 

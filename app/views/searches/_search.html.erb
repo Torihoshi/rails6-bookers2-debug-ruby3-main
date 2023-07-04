@@ -1,6 +1,7 @@
 <!--部分テンプレート searches/_search.html 検索BOX-->
 <div class='container px-5 px-sm-0'>
   <div class='row'>
+
     <% if user_signed_in? %>
       <div class="search_form">
         <%= form_with url: search_path, local: true, method: :get do |f| %>
@@ -10,6 +11,20 @@
           <%= f.submit "検索", class: "btn btn-primary" %>
         <% end %>
       </div>
+
+      <div class="serch_form" >
+        <table align="center">
+          <tr>
+            <div class="serch_form">
+            <%= form_with url: tagsearches_search_path,method: :get, local: true do |f| %>
+            <td><%= f.text_field :content %></td>
+            <td><%= f.submit'タグ検索', class: "btn btn-primary" %></td>
+            <% end %>
+            </div>
+          </tr>
+        </table>
+      </div>
     <% end %>
+
   </div>
 </div>

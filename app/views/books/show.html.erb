@@ -25,15 +25,27 @@
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
 
+          <!--カテゴリタグ-->
+          <td>
+          　<% if @book.category.present? %>
+          　　　<%=link_to@book.category,tagsearches_search_path(content:@book.category)%>
+          　<% end %>
+          </td>
+
           <!--いいね機能の非同期通信化-->
           <td id="favorite_buttons_<%= @book.id %>">
             <%= render "favorites/btn", book: @book %>
           </td>
-          <td nowrap>コメント数:<span id="comment_count"><%= @book.book_comments.count %></span></td>
-          <td nowrap><%= render "static_rate", book: @book %></td>
+          <td>
+            <a>コメント数:<span id="comment_count"><%= @book.book_comments.count %></span></a>
+            <a><%= render "static_rate", book: @book %></a>
+          </td>
+
           <% if @book.user == current_user %>
-            <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
-            <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
+            <td>
+              <%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %>
+              <%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%>
+            </td>
           <% end %>
         </tr>
       </table>
