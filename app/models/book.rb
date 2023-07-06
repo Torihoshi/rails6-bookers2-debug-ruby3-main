@@ -29,9 +29,15 @@ class Book < ApplicationRecord
   end
 
   # ソート機能(desc=昇順, asc=降順)
-  scope :latest, -> {order(created_at: :desc)} #作成日が新しい順
-  scope :old, -> {order(created_at: :asc)} #作成日が古い順
-  scope :star_count, -> {order(star: :desc)} #スコア順
+  scope :latest, -> {order(created_at: :desc)} #作成日が新しい順 降順
+  scope :old, -> {order(created_at: :asc)} #作成日が古い順 昇順
+  scope :star_count, -> {order(star: :desc)} #スコア順 降順
+
+  scope :favorite_count, -> {
+    left_joins(:favorites)
+      .group(:id)
+      .order(Arel.sql('COUNT(favorites.id) DESC'))
+  }
 
 
 
